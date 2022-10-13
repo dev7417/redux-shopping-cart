@@ -9,10 +9,11 @@ import CardData from './Components/CardData';
 function App() {
   return (
    <>
-   <Header/>
     <BrowserRouter>
+   <Header/>
       <Routes>
-        <Route path='/' element={<Card/>}/>
+        <Route path='/Card' element={<Card/>}/>
+        <Route path='/CardData' element={<cardData/>}/>
       </Routes>
     </BrowserRouter>
    </>
