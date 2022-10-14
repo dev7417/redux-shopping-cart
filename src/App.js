@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Components/Header';
 import {BrowserRouter, Routes,Route} from "react-router-dom"
-import Card from './Components/Card';
+import Cards from './Components/Cards';
 import CardData from './Components/CardData';
 
 
@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
    <Header/>
       <Routes>
-        <Route path='/Card' element={<Card/>}/>
+        <Route path='/Card' element={<Cards/>}/>
         <Route path='/CardData' element={<cardData/>}/>
       </Routes>
     </BrowserRouter>

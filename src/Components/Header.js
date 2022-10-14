@@ -48,7 +48,7 @@ export default function Header() {
                         }}
                     >
                         <div className='card_details d-flex justify-content-center align-items-center' style={{ width: "20rem", padding: "10px", position: "relative" }}>
-                            <i className='fa fa-close smallclose' style={{ position: "absolute", top: "2px", right: "20px", fontSize: "20px", cursor: "pointer" }}></i>
+                            <i className='fa fa-close smallclose' style={{ position: "absolute", top: "2px", right: "20px", fontSize: "20px", cursor: "pointer" }} onClick={handleClose}></i>
                             <p style={{ fontSize: "22px" }}>Your Cart is Empty</p>
                         </div>
                     </Menu>
