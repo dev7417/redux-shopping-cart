@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import './cart.css'
 
 
 export default function Header() {
@@ -57,20 +58,21 @@ export default function Header() {
 
                         {getData.length ?
                             <div>
-                                <Card style={{ width: '18rem' }}>
+                                <Card  className='d-flex justify-content-center align-items-center' style={{ width: '15rem' }}>
                                     
                                         {getData.map((item) => {
                                             return (
                                                 <>
-                                                <Card.Img variant="top" src={item.imgdata} />
+                                                <div className = ''>
+                                                <Card.Img variant="top" src={item.imgdata} className='img-fluid img' />
                                               <Card.Body>
-                                                    <Card.Title>{item.rname}</Card.Title>
-                                                    <Card.Text>
-                                                        Some quick example text to build on the card title and make up the
-                                                        bulk of the card's content.
+                                                    <Card.Title style = {{fontSize:'15px'}}>{item.rname}</Card.Title>
+                                                    <Card.Text style={{fontSize:"19px"}}>
+                                                    ₹ {item.price} <span style={{backgroundColor:'red', color:'#fff', borderRadius:'15px', marginLeft:'10px', cursor:'pointer'}}><i className="fa fa-times-circle"></i></span>
                                                     </Card.Text>
-                                                    <Button variant="primary">Go somewhere</Button>
+                                                    
                                                     </Card.Body>
+                                                    </div>
                                                 </>
                                             )
                                         })}

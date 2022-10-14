@@ -29,3 +29,7 @@
 .details{
     flex: 5;
 }
+
+.img{
+    width: 120px;
+}
