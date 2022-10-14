@@ -5,11 +5,18 @@ import Cardsdata from './CardData';
 import { useState } from 'react';
 import CardDetails from './CardDetails';
 import './cart.css';
-
+import { useDispatch } from 'react-redux'
+import { AddToCart } from '../redux/Action/action';
 
 export default function Cards() {
   const [data, setData] = useState(Cardsdata);
   const [search, setSearch] = useState('')
+  const dispatch = useDispatch();
+
+
+  const sendData = (e) => {
+    dispatch(AddToCart(e));
+  }
 
   return (
     <>
@@ -33,7 +40,7 @@ export default function Cards() {
                         {element.address}
                       </Card.Text>
                       <div className='button_div d-flex justify-content-center'>
-                      <Button variant="primary" className='col-lg-12'>Add to Cart</Button>
+                        <Button variant="primary" className='col-lg-12' onClick={(() => sendData(element))}>Add to Cart</Button>
 
                       </div>
                     </Card.Body>

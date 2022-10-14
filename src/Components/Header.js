@@ -4,13 +4,19 @@ import { Container } from 'react-bootstrap'
 import Badge from '@mui/material/Badge';
 import Nav from 'react-bootstrap/Nav';
 import { NavLink } from 'react-router-dom';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 
 export default function Header() {
+
+    const getData = useSelector((state) => state.cartReducer.cartData);
+    console.log("==============================>Header", getData)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -28,7 +34,7 @@ export default function Header() {
                         <Nav className="me-auto px-4">
                             <NavLink to='/' className='text-white font-weight-bold' style={{ textDecoration: "none", textTransform: "uppercase" }}>Home</NavLink>
                         </Nav>
-                        <Badge badgeContent={4} color="primary"
+                        <Badge badgeContent={getData.length} color="primary"
                             id="basic-button"
                             aria-controls={open ? 'basic-menu' : undefined}
                             aria-haspopup="true"
@@ -47,10 +53,46 @@ export default function Header() {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        <div className='card_details d-flex justify-content-center align-items-center' style={{ width: "20rem", padding: "10px", position: "relative" }}>
-                            <i className='fa fa-close smallclose' style={{ position: "absolute", top: "2px", right: "20px", fontSize: "20px", cursor: "pointer" }} onClick={handleClose}></i>
-                            <p style={{ fontSize: "22px" }}>Your Cart is Empty</p>
-                        </div>
+
+
+                        {getData.length ?
+                            <div>
+                                <Card style={{ width: '18rem' }}>
+                                    
+                                        {getData.map((item) => {
+                                            return (
+                                                <>
+                                                <Card.Img variant="top" src={item.imgdata} />
+                                              <Card.Body>
+                                                    <Card.Title>{item.rname}</Card.Title>
+                                                    <Card.Text>
+                                                        Some quick example text to build on the card title and make up the
+                                                        bulk of the card's content.
+                                                    </Card.Text>
+                                                    <Button variant="primary">Go somewhere</Button>
+                                                    </Card.Body>
+                                                </>
+                                            )
+                                        })}
+
+                                </Card>
+                            </div> :
+                            <div className='card_details d-flex justify-content-center align-items-center' style={{ width: "20rem", padding: "10px", position: "relative" }}>
+                                <i className='fa fa-close smallclose' style={{ position: "absolute", top: "2px", right: "20px", fontSize: "20px", cursor: "pointer" }} onClick={handleClose}></i>
+                                <p style={{ fontSize: "22px" }}>Your Cart is Empty</p>
+                            </div>
+
+                        }
+
+
+
+
+
+
+
+
+
+
                     </Menu>
                 </Navbar>
             </div>
