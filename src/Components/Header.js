@@ -11,6 +11,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useDispatch } from 'react-redux';
+import { RemoveToCart } from '../redux/Action/action';
 import './cart.css'
 
 
@@ -19,6 +21,7 @@ export default function Header() {
     const getData = useSelector((state) => state.cartReducer.cartData);
     console.log("==============================>Header", getData)
     const [anchorEl, setAnchorEl] = useState(null);
+    const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -26,6 +29,11 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const removeData = (e)=>{
+        dispatch(RemoveToCart(e));
+
+    }
+    console.log("=============removeData",removeData)
     return (
         <>
             <div>
@@ -68,7 +76,7 @@ export default function Header() {
                                               <Card.Body>
                                                     <Card.Title style = {{fontSize:'15px'}}>{item.rname}</Card.Title>
                                                     <Card.Text style={{fontSize:"19px"}}>
-                                                    ₹ {item.price} <span style={{backgroundColor:'red', color:'#fff', borderRadius:'15px', marginLeft:'10px', cursor:'pointer'}}><i className="fa fa-times-circle"></i></span>
+                                                    ₹ {item.price} <span style={{backgroundColor:'red', color:'#fff', borderRadius:'15px', marginLeft:'10px', cursor:'pointer'}}><i className="fa fa-times-circle" onClick={()=>removeData(item)}></i></span>
                                                     </Card.Text>
                                                     
                                                     </Card.Body>
