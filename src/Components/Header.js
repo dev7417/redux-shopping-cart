@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 // import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -21,6 +21,8 @@ export default function Header() {
     const getData = useSelector((state) => state.cartReducer.cartData);
     console.log("==============================>Header", getData)
     const [anchorEl, setAnchorEl] = useState(null);
+    const [totalPrice, setPrice] = useState()
+    console.log("==========================================>", totalPrice)
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -29,11 +31,23 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const removeData = (e)=>{
+    const removeData = (e) => {
         dispatch(RemoveToCart(e));
 
     }
-    console.log("=============removeData",removeData)
+    console.log("=============removeData", removeData)
+
+    const total = () => {
+        let price = 0;
+        getData.map((item) => {
+            price = item.price + price;
+        })
+        setPrice(price);
+    }
+
+    useEffect(() => {
+        total();
+    }, [total])
     return (
         <>
             <div>
@@ -66,24 +80,27 @@ export default function Header() {
 
                         {getData.length ?
                             <div>
-                                <Card  className='d-flex justify-content-center align-items-center' style={{ width: '15rem' }}>
-                                    
-                                        {getData.map((item) => {
-                                            return (
-                                                <>
-                                                <div className = ''>
-                                                <Card.Img variant="top" src={item.imgdata} className='img-fluid img' />
-                                              <Card.Body>
-                                                    <Card.Title style = {{fontSize:'15px'}}>{item.rname}</Card.Title>
-                                                    <Card.Text style={{fontSize:"19px"}}>
-                                                    ₹ {item.price} <span style={{backgroundColor:'red', color:'#fff', borderRadius:'15px', marginLeft:'10px', cursor:'pointer'}}><i className="fa fa-times-circle" onClick={()=>removeData(item)}></i></span>
-                                                    </Card.Text>
-                                                    
+                                <Card className='d-flex justify-content-center align-items-center' style={{ width: '15rem' }}>
+
+                                    {getData.map((item) => {
+
+                                        return (
+                                            <>
+                                                <div className=''>
+                                                    <Card.Img variant="top" src={item.imgdata} className='img-fluid img' />
+                                                    <Card.Body>
+                                                        <Card.Title style={{ fontSize: '15px' }}>{item.rname}</Card.Title>
+                                                        <Card.Text style={{ fontSize: "19px" }}>
+
+                                                            ₹ {item.price} <span style={{ backgroundColor: 'red', color: '#fff', borderRadius: '15px', marginLeft: '10px', cursor: 'pointer' }}><i className="fa fa-times-circle" onClick={() => removeData(item)}></i></span>
+                                                            <p>Quantity   {totalPrice}</p>
+                                                        </Card.Text>
+
                                                     </Card.Body>
-                                                    </div>
-                                                </>
-                                            )
-                                        })}
+                                                </div>
+                                            </>
+                                        )
+                                    })}
 
                                 </Card>
                             </div> :
@@ -93,16 +110,6 @@ export default function Header() {
                             </div>
 
                         }
-
-
-
-
-
-
-
-
-
-
                     </Menu>
                 </Navbar>
             </div>
