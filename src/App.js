@@ -13,9 +13,9 @@ function App() {
     <BrowserRouter>
    <Header/>
       <Routes>
-        <Route path='/Card' element={<Cards/>}/>
         <Route path='/CardData' element={<cardData/>}/>
-        <Route path='/cartDetails' element={<CardDetails/>}/>
+        <Route path='/' element={<Cards/>}/>
+        <Route path='/cartDetails/:rname' element={<CardDetails/>}/>
       </Routes>
     </BrowserRouter>
    </>

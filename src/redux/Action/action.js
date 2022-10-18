@@ -8,7 +8,7 @@ export const AddToCart = (item) =>{
 }
 
 export const RemoveToCart = (data) =>{
-    console.log(data)
+    // console.log(data)
     return{
         type:"REMOVE_TO_CART",
         id:data.id
